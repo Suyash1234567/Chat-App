@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CheckCallService } from '../check-call.service';
-import { Jsonp } from '../../../node_modules/@angular/http';
+
 
 @Component({
   selector: 'app-twichat',
@@ -8,11 +8,11 @@ import { Jsonp } from '../../../node_modules/@angular/http';
   styleUrls: ['./twichat.component.css']
 })
 export class TwichatComponent implements OnInit {
-
+  
+  msggrp;
   public newChannel="";
   public txtmsg="";
-  grpObj;
-  msggrp;
+  
   constructor(private service: CheckCallService) { }
 
   ngOnInit() { 
@@ -26,7 +26,7 @@ export class TwichatComponent implements OnInit {
       this.service.fetchChannel(this.newChannel).subscribe(response =>{
         console.log(response);
         console.log("New Channel Created");
-        this.grpObj;
+ 
       },
     error => {
       console.log(error);
@@ -35,11 +35,11 @@ export class TwichatComponent implements OnInit {
 
   channelArr=[];
   channeldisplay() {
-    this.service.channeldisplay().subscribe(res=>{
+    this.service.channeldisplay().subscribe(response=>{
       
-      for (let index=0;index<res.channels.length;index++)
+      for (let index=0;index<response.channels.length;index++)
       {
-        this.channelArr[index]=res.channels[index].UniqueName;
+        this.channelArr[index]=response.channels[index].UniqueName;
       }
     },
   err=> {

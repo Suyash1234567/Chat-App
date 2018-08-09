@@ -10,7 +10,7 @@ import {HttpModule} from '@angular/http';
 import { CheckCallService } from './check-call.service';
 import { TwichatComponent } from './twichat/twichat.component'
 import { AppRoutingModule } from './app.routing';
-import { FormsModule } from '@angular/forms'            //imported for two way binding
+import { FormsModule } from '@angular/forms'            
 
 
 
