@@ -6,7 +6,7 @@ import { TwichatComponent } from './twichat/twichat.component';
 const routes: Routes = [
     { path: 'signin', component: SigninComponent },
     { path: 'twichat', component: TwichatComponent },
-    { path: '**', component: SigninComponent }
+    { path: '', component: SigninComponent }
 ];
 
 @NgModule({

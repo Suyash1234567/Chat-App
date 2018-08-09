@@ -1,21 +1,36 @@
-<div class="header"><br>
-  <span id="ph" class="ph"></span>
-  <i class="m-i"></i>
-  <input type="text" class="form-control" placeholder="Search.." name="search"><br><br>
-</div>
-
-<div class = "box">
-<div class = "div1">
-  <br><br>
-  <input type="search" class="btn btn-default" placeholder="search your channel">
-    <button type="button" class="btn btn-default" (click)="channels()">
-    <span class="glyphicon glyphicon-plus-sign"></span>
+<div class="box">
+  <div class="div1">
+    <br>
+    <br>
+    <!-- Channel name stores the value of whatever we type(for ref- see ts file) -->
+    <input type="search" class="btn btn-default" [(ngModel)]="channelName" placeholder="search your channel">    
+    <button type="button" class="btn btn-default" (click)="searchChannels()">
+      <span class="glyphicon glyphicon-search"></span>
     </button>
-</div>
-
-<div class = "div2">
-  <br><br>
-<input type="text" class="message" placeholder="Send your message" name="msg"><br><br>
-<button type = "button" value="snd" class="fa fa-telegram" (click)="sndmsg()"></button> 
-</div>
+    <button type="button" class="btn btn-default" (click)="addChannel()">
+      <span class="glyphicon glyphicon-plus-sign"></span>
+    </button>
+  </div>
+  <div class="div3">
+    <div class="panel panel-default">
+      <div class="panel-heading">Message Heading</div>
+      <div class="panel-body">
+        <li *ngFor="let element of allMsg">
+          {{ element.body }}
+        </li>
+      </div>
+    </div>
+  </div>
+  <div class="div2">
+      <input type="text" class="message btn btn-default" [(ngModel)]="sendMsg" placeholder="Send your message" name="msg">&nbsp;&nbsp;
+      <button type="button" value="snd"  (click)="sendMessage()" >
+      <span class="glyphicon glyphicon-play-circle"></span>
+        </button>
+    <br>
+    <br>
+    
+    <br>
+    <br>
+    
+  </div>
 </div>

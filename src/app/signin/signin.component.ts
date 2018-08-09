@@ -11,19 +11,20 @@ import { Router } from '../../../node_modules/@angular/router';
 })
 export class SigninComponent implements OnInit {
 
-  constructor(private socialAuthService: AuthService, private service: CheckCallService, private routes: Router ) { }
+  constructor(private socialAuthService: AuthService, private service: CheckCallService, private routes: Router) { }
 
   public socialSignIn(socialPlatform: string) {
     let socialPlatformProvider;
     if (socialPlatform == "google") {
       socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
-    } 
+    }
     // else if (socialPlatform == "linkedin") {
     //   socialPlatformProvider = LinkedinLoginProvider.PROVIDER_ID;
     // }
 
     this.socialAuthService.signIn(socialPlatformProvider).then(
       (userData) => {
+        localStorage.setItem('key', JSON.stringify(userData));
         console.log(socialPlatform + " sign in data : ", userData);
         var resp = this.service.getInfo();
         resp.subscribe(data => console.log(data));

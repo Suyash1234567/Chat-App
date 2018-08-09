@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CheckCallService } from '../check-call.service';
-
+import { UserService } from '../auth.service';
 
 @Component({
   selector: 'app-twichat',
@@ -8,50 +7,68 @@ import { CheckCallService } from '../check-call.service';
   styleUrls: ['./twichat.component.css']
 })
 export class TwichatComponent implements OnInit {
-  
+
   msggrp;
-  public newChannel="";
-  public txtmsg="";
-  
-  constructor(private service: CheckCallService) { }
+  public newChannel = "";
+  public txtmsg = "";
+  length: number;
+  msgArr = [];
+  MyVar: string;
+  channelName: string = "";
+  sendMsg: string = "";
+  allMsg: any = [];                               //ngFor used for showing messages here(using allMsg array)
+  constructor(private service: UserService) { }
 
-  ngOnInit() { 
-    // this.callService();
+  ngOnInit() {                                    //will show all the message on page initialisation
+    this.allMessages();
   }
 
-  channels() {
-    // this.service.fetchChannel().subscribe(response => {
-    //   console.log(response);
-      // this.client = response;
-      this.service.fetchChannel(this.newChannel).subscribe(response =>{
-        console.log(response);
-        console.log("New Channel Created");
- 
-      },
-    error => {
-      console.log(error);
-    });
-  }
+  searchChannels() {
+    let flag = false;           //Used as an indicator when channel is found/not found
 
-  channelArr=[];
-  channeldisplay() {
-    this.service.channeldisplay().subscribe(response=>{
-      
-      for (let index=0;index<response.channels.length;index++)
-      {
-        this.channelArr[index]=response.channels[index].UniqueName;
+    this.service.DisplayAllChannel().subscribe(res => {
+      this.length = res.channels.length;        //channels here is an array and loop is being run till its length 
+      for (let i = 0; i < this.length; i++) {
+        if (this.channelName == res.channels[i].unique_name) {  //Checks the given input field with array here
+          flag = true;
+          console.log('Channel Found', res.channels[i]); //Shows full details of the channels
+          this.MyVar = res.channels[i].unique_name;     //MyVar stores the name of the channel
+          break;
+        }
       }
+
+      if (flag === false) {
+        this.MyVar = "Channel not found";
+        console.log("Searched Group not found");
+      }
+    }),
+      err => {
+        console.log(err);
+      }
+  }
+  addChannel() {
+    this.service.AddChannel(this.channelName).subscribe(response => {
+      console.log('Channel Added', response);                         //Shows the details of the channel added
+    }),
+      err => {
+        console.log(err);
+      }
+  }
+  sendMessage() {
+    this.service.SendMessage(this.sendMsg).subscribe(response => {     //Parameter passed cause we are sending(post) so we use this.sendMsg in parameter
     },
-  err=> {
-    console.log(err);
-  })
+      err => {                                                         //Syntax to find default error(Observable Method)
+        console.log(err);
+      },
+      () => {                                                         //This function is used when service finished sending all the data and we call ShowAllMessage Function here
+        this.allMessages();
+      });
   }
 
-  sndmsg() 
-  {    
-  this.service.entermessage(this.txtmsg).subscribe(response=>{   
-    this.msggrp=response.body;   
-    console.log(this.msggrp);    
-  })  
+  allMessages() {
+    this.service.ShowAllMessages().subscribe(response => {              //response stores the data called from service
+      this.allMsg = response.messages;                                 //the 'messages' (cause of dot(.)) property gets saved allMsg
+      console.log(response.messages);
+    });
   }
 }
