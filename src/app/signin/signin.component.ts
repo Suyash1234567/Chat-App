@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, GoogleLoginProvider } from 'angular-6-social-login';
 import { CheckCallService } from '../check-call.service';
+import { Router } from '../../../node_modules/@angular/router';
+
 
 @Component({
   selector: 'app-signin',
@@ -9,7 +11,7 @@ import { CheckCallService } from '../check-call.service';
 })
 export class SigninComponent implements OnInit {
 
-  constructor(private socialAuthService: AuthService, private service: CheckCallService ) { }
+  constructor(private socialAuthService: AuthService, private service: CheckCallService, private routes: Router ) { }
 
   public socialSignIn(socialPlatform: string) {
     let socialPlatformProvider;
@@ -25,6 +27,7 @@ export class SigninComponent implements OnInit {
         console.log(socialPlatform + " sign in data : ", userData);
         var resp = this.service.getInfo();
         resp.subscribe(data => console.log(data));
+        this.routes.navigate(['twichat']);
         // Now sign-in with userData
         // ...
 

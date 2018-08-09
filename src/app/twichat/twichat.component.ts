@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CheckCallService } from '../check-call.service';
+import { Jsonp } from '../../../node_modules/@angular/http';
 
 @Component({
   selector: 'app-twichat',
@@ -8,7 +9,10 @@ import { CheckCallService } from '../check-call.service';
 })
 export class TwichatComponent implements OnInit {
 
-  client: any;
+  public newChannel="";
+  public txtmsg="";
+  grpObj;
+  msggrp;
   constructor(private service: CheckCallService) { }
 
   ngOnInit() { 
@@ -16,10 +20,38 @@ export class TwichatComponent implements OnInit {
   }
 
   channels() {
-    this.service.fetchChannel(this.channels).subscribe(response => {
-      console.log(response);
+    // this.service.fetchChannel().subscribe(response => {
+    //   console.log(response);
       // this.client = response;
-      // this.service.fetchChannel(response);
+      this.service.fetchChannel(this.newChannel).subscribe(response =>{
+        console.log(response);
+        console.log("New Channel Created");
+        this.grpObj;
+      },
+    error => {
+      console.log(error);
     });
+  }
+
+  channelArr=[];
+  channeldisplay() {
+    this.service.channeldisplay().subscribe(res=>{
+      
+      for (let index=0;index<res.channels.length;index++)
+      {
+        this.channelArr[index]=res.channels[index].UniqueName;
+      }
+    },
+  err=> {
+    console.log(err);
+  })
+  }
+
+  sndmsg() 
+  {    
+  this.service.entermessage(this.txtmsg).subscribe(response=>{   
+    this.msggrp=response.body;   
+    console.log(this.msggrp);    
+  })  
   }
 }

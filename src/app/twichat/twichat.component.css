@@ -1,0 +1,43 @@
+.form-control {
+    width: 180px;
+    /* padding: 10px 10px; */
+    background-color: #e7c4c1;
+}
+
+.srch{
+    /* padding: 10px 10px; */
+    background-color: #e7c4c1;
+}
+
+.message{
+    /* padding: 10px 10px; */
+    margin-top: 28%;
+    width: 939px;
+    background-color: #e7c4c1;
+}
+div.box {
+    background: #EEE;
+    height: 100%;
+    width: 100%;
+  }
+  
+  div.header{
+  
+    height: 18%;
+    width:30%;
+  }
+  
+  div.div1 {
+    background: rgb(109, 52, 131);
+    float: left;
+    height: 500px;
+    width: 30%;
+  }
+  
+  div.div2 {
+    background: rgb(211, 197, 197);
+    height: 500px;
+    width:100%
+  }
+  
+  

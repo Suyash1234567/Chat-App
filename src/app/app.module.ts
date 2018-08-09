@@ -10,6 +10,7 @@ import {HttpModule} from '@angular/http';
 import { CheckCallService } from './check-call.service';
 import { TwichatComponent } from './twichat/twichat.component'
 import { AppRoutingModule } from './app.routing';
+import { FormsModule } from '@angular/forms'            //imported for two way binding
 
 
 
@@ -39,7 +40,7 @@ export function getAuthServiceConfigs() {
   imports: [
     SocialLoginModule,
     HttpModule,HttpClientModule,
-    BrowserModule,AppRoutingModule
+    BrowserModule,AppRoutingModule,FormsModule       
   ],
   providers: 
   [CheckCallService,

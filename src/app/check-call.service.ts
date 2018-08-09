@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders , HttpClient , HttpParams } from '@angular/common/http';
 import { Observable } from '../../node_modules/rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,8 @@ import { Observable } from '../../node_modules/rxjs';
 
 export class CheckCallService {
   url : string="https://chat.twilio.com/v2/Services";
+  serviceid:string = "IS428c9c766b8b412abc1d0545f6019e59";  
+  chid:string = "CH54f5535ce1ed4edc96d5f489ba368f09";
   
 
   channel : string = "https://chat.twilio.com/v2/Services/IS428c9c766b8b412abc1d0545f6019e59/Channels";
@@ -21,9 +24,16 @@ export class CheckCallService {
     return this.http.post(this.url,body.toString(),httpOptions);
   }
 
-  fetchChannel(channel):Observable<any>{
+  fetchChannel(nchannel):Observable<any>{
     
-    return this.http.post(this.channel,"UniqueName"+channel,httpOptions);
+    return this.http.post(this.channel,"UniqueName="+nchannel,httpOptions);
+  }
+  entermessage(message): Observable<any> {   
+    return this.http.post("https://chat.twilio.com/v2/Services/" + this.serviceid+"/Channels/"+this.chid+
+    "/Mmessages","ChannelSid="+this.chid+"&ServiceSid="+this.serviceid+"&Body="+message,httpOptions);  
+  }
+  channeldisplay():Observable<any>{
+    return this.http.get(this.channel,httpOptions).pipe(map(data => data));
   }
 
 }

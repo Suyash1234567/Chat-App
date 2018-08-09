@@ -1,17 +1,21 @@
-<div class = "LeftBox">
-  <input type="search" placeholder="search your channel">
-  <p>
-    Channels
-    <button type="button" class="btn btn-default" (click)="channels()">
-      <span class="glyphicon glyphicon-plus-sign"></span>
-    </button>
-  </p>
-</div>
-<div class="header">
-  <span id="ph" class="fa fa-ph"></span>
+<div class="header"><br>
+  <span id="ph" class="ph"></span>
   <i class="m-i"></i>
-  <input type="text" class="form-control" placeholder="Serach.." name="serach">
+  <input type="text" class="form-control" placeholder="Search.." name="search"><br><br>
 </div>
-<div class = "right">
-  <input type="text" class="message" placeholder="Send your message" name="msg">
+
+<div class = "box">
+<div class = "div1">
+  <br><br>
+  <input type="search" class="btn btn-default" placeholder="search your channel">
+    <button type="button" class="btn btn-default" (click)="channels()">
+    <span class="glyphicon glyphicon-plus-sign"></span>
+    </button>
+</div>
+
+<div class = "div2">
+  <br><br>
+<input type="text" class="message" placeholder="Send your message" name="msg"><br><br>
+<button type = "button" value="snd" class="fa fa-telegram" (click)="sndmsg()"></button> 
+</div>
 </div>
