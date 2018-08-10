@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../auth.service';
+import { Router } from '../../../node_modules/@angular/router';
+
+
 
 @Component({
   selector: 'app-twichat',
@@ -8,6 +11,7 @@ import { UserService } from '../auth.service';
 })
 export class TwichatComponent implements OnInit {
 
+  public loading = false;
   msggrp;
   public newChannel = "";
   public txtmsg = "";
@@ -17,7 +21,7 @@ export class TwichatComponent implements OnInit {
   channelName: string = "";
   sendMsg: string = "";
   allMsg: any = [];                               //ngFor used for showing messages here(using allMsg array)
-  constructor(private service: UserService) { }
+  constructor(private service: UserService, private router: Router) { }
 
   ngOnInit() {                                    //will show all the message on page initialisation
     this.allMessages();
@@ -47,14 +51,31 @@ export class TwichatComponent implements OnInit {
       }
   }
   addChannel() {
+    this.loading = true;
     this.service.AddChannel(this.channelName).subscribe(response => {
       console.log('Channel Added', response);                         //Shows the details of the channel added
+    }),
+      this.loading = false;
+    err => {
+      console.log(err);
+    }
+  }
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['signin']);
+  }
+  getIdMember(str) {
+    document.getElementById("MyVar_" + str).innerHTML;
+    this.service.getChannelId(document.getElementById("MyVar_" + str).innerHTML
+    ).subscribe(response => {
+      console.log('Channel Id Recieved', response);
     }),
       err => {
         console.log(err);
       }
   }
   sendMessage() {
+    this.loading = true;
     this.service.SendMessage(this.sendMsg).subscribe(response => {     //Parameter passed cause we are sending(post) so we use this.sendMsg in parameter
     },
       err => {                                                         //Syntax to find default error(Observable Method)
@@ -68,6 +89,7 @@ export class TwichatComponent implements OnInit {
   allMessages() {
     this.service.ShowAllMessages().subscribe(response => {              //response stores the data called from service
       this.allMsg = response.messages;                                 //the 'messages' (cause of dot(.)) property gets saved allMsg
+      this.loading = false;
       console.log(response.messages);
     });
   }

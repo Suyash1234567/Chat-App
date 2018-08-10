@@ -34,22 +34,30 @@ div.box {
   }
   
   div.div2 {
-    height: 500px;
-    width:100%
+    /* height: 100px; */
+    width:70%
   }
   
   div.div3{
-    margin-left:200px;
+    /* margin-left:300px; */
+    margin-left: 420px;
+    height: 500px;
   }
 
-  .panel-default{
-    width: 700px;
-    margin-left: 130px;
-  }
+  /* .panel-default{
+    width: 70;
+    
+  } */
   .panel-body{
     height:400px; 
     overflow-y: auto;
   }
   .fa-telegram{
     margin-left:1000px;
+  }
+  .btn-primary{
+    margin-right: 10%;
+  }
+  .btn-primary{
+    float: right;
   }

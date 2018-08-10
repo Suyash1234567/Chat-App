@@ -41,6 +41,9 @@ export class UserService {
     SendMessage(str): Observable<any> {
         return this.http.post('https://chat.twilio.com/v2/Services/IS428c9c766b8b412abc1d0545f6019e59/Channels/CH9da029d2483b45f1b0ae2e32b5256348/Messages', 'ChannelSid=CH9da029d2483b45f1b0ae2e32b5256348&ServiceSid=IS428c9c766b8b412abc1d0545f6019e59&From=' + this.User.email + '&Body=' + str, this.httpOptions);
     }
+    getChannelId(channel_name):Observable<any>{
+        return this.http.get('https://chat.twilio.com/v2/Services/IS428c9c766b8b412abc1d0545f6019e59/Channels/'+channel_name, this.httpOptions);
+    }
     ShowAllMessages(): Observable<any> {
         return this.http.get('https://chat.twilio.com/v2/Services/IS428c9c766b8b412abc1d0545f6019e59/Channels/CH9da029d2483b45f1b0ae2e32b5256348/Messages', this.httpOptions);
     }

@@ -10,20 +10,20 @@
     <button type="button" class="btn btn-default" (click)="addChannel()">
       <span class="glyphicon glyphicon-plus-sign"></span>
     </button><br><br>
-    <li>{{MyVar}}</li>
+    <li id="MyVar_{{MyVar}}" (click)="getIdMember(MyVar)">{{MyVar}}</li>
   </div>
   <div class="div3">
     <div class="panel panel-default">
-      <div class="panel-heading">Message Heading</div>
+      <div class="panel-heading">Message Heading <button type="button" class="btn btn-primary" (click)="logout()">Logout</button></div>
       <div class="panel-body">
         <li *ngFor="let element of allMsg">
           {{ element.body }}
         </li>
       </div>
     </div>
-  </div>
-  <div class="div2">
+    <div class="div2">
       <input type="text" class="message btn btn-default" [(ngModel)]="sendMsg" placeholder="Send your message" name="msg">&nbsp;&nbsp;
+     
       <button type="button" value="snd"  (click)="sendMessage()" >
       <span class="glyphicon glyphicon-play-circle"></span>
         </button>
@@ -35,4 +35,7 @@
     <br>
     
   </div>
+  </div>
+  
 </div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>

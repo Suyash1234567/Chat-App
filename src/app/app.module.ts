@@ -12,7 +12,9 @@ import { TwichatComponent } from './twichat/twichat.component'
 import { AppRoutingModule } from './app.routing';
 import { FormsModule } from '@angular/forms'
 import { UserService } from './auth.service';
-import { AuthgService } from './authg.service'
+import { AuthgService } from './authg.service';
+// import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 
 
 export function getAuthServiceConfigs() {
@@ -40,8 +42,16 @@ export function getAuthServiceConfigs() {
   ],
   imports: [
     SocialLoginModule,
-    HttpModule, HttpClientModule,
-    BrowserModule, AppRoutingModule, FormsModule
+    HttpModule, HttpClientModule,LoadingModule,
+    BrowserModule, AppRoutingModule, FormsModule,
+    LoadingModule.forRoot({
+      animationType: ANIMATION_TYPES.wanderingCubes,
+      backdropBackgroundColour: 'rgba(0,0,0,0.1)', 
+      backdropBorderRadius: '4px',
+      primaryColour: '#ffffff', 
+      secondaryColour: '#ffffff', 
+      tertiaryColour: '#ffffff'
+  })
   ],
   providers:
     [CheckCallService, UserService,
