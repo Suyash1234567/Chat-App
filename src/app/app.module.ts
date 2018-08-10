@@ -12,6 +12,7 @@ import { TwichatComponent } from './twichat/twichat.component'
 import { AppRoutingModule } from './app.routing';
 import { FormsModule } from '@angular/forms'
 import { UserService } from './auth.service';
+import { AuthgService } from './authg.service'
 
 
 export function getAuthServiceConfigs() {
@@ -47,7 +48,7 @@ export function getAuthServiceConfigs() {
       {
         provide: AuthServiceConfig,
         useFactory: getAuthServiceConfigs
-      }
+      },AuthgService
     ],
   bootstrap: [AppComponent]
 })
