@@ -15,13 +15,14 @@ export class TwichatComponent implements OnInit {
   msggrp;
   public newChannel = "";
   public txtmsg = "";
-  public channel ="";
-  public tempChannelname ="";
+  public channel ="CH736d7089e477499682a3df0d9e095fac";
+  public tempChannelname ="General";
   public show = 0;
+  public loggedInUser= localStorage.getItem("Name");
   length: number;
   msgArr = [];
   myAllChannels=[];
-  MyVar: string;
+  public MyVar: string = "General";
   channelName: string = "";
   sendMsg: string = "";
   allMsg: any = [];                               //ngFor used for showing messages here(using allMsg array)
@@ -31,12 +32,13 @@ export class TwichatComponent implements OnInit {
   message:any;
   searchValue:any;
   channelId:any;
-  variable=localStorage.getItem("Name");
+
   constructor(private service: UserService, private router: Router) { }
 
   ngOnInit() {                                    //will show all the message on page initialisation
-    this.checkChannel();
-    // //this.allMessages();
+    // this.checkChannel();
+    this.allMessages();
+    this.GetAllChannel();
     // this.setInt=setInterval(()=>{
     //   this.service.ShowAllMessages().subscribe(res=>{
     //     this.message=res.message;
@@ -54,49 +56,66 @@ export class TwichatComponent implements OnInit {
     this.searchValue = null;
   }
 
-
-  checkChannel()
+  GetAllChannel()
   {
-    this.channelName="Default_Channel_suyash mehrotra";
-    let flag = false;           //Used as an indicator when channel is found/not found
-   //Since function was being called befor getting the results set in the variable, so used the code here
     this.service.DisplayAllChannel().subscribe(res => {
-      this.length = res.channels.length;        //channels here is an array and loop is being run till its length 
-      this.myAllChannels=res.channels;
-      for (let i = 0; i < this.length; i++) {
-        if (this.channelName == res.channels[i].unique_name) {  //Checks the given input field with array here
-          flag = true;
-          console.log('Channel Found', res.channels[i]); //Shows full details of the channels
-          this.MyVar = res.channels[i].unique_name;     //MyVar stores the name of the channel
-          this.tempChannelname = res.channels[i].unique_name;
-          console.log("Myvar value",this.MyVar);
-          this.getChannelIdbyName(this.channelName);
-          break;
+      this.myAllChannels = res.channels;        //channels here is an array and loop is being run till its length 
+      for(let index=0;index<this.myAllChannels.length;index++)    //loop applied TO REMOVE blank spaces channel-name 
+      {
+        if (this.myAllChannels[index].unique_name==null)
+        {
+          this.myAllChannels.splice(index,1);                     //(index,1) means array element from index to index+1 will be removed
         }
-      }
-
-      if (flag === false) {
-        //this.addChannel();
-        this.service.AddChannel(this.channelName).subscribe(response => {     //Parameter passed cause we are sending(post) so we use this.sendMsg in parameter
-        },
-          err => {                                                         //Syntax to find default error(Observable Method)
-            console.log(err);
-          },
-          () => {                                                         //This function is used when service finished sending all the data and we call ShowAllMessage Function here
-            this.getChannelIdbyName(this.channelName);
-          });
         
       }
     }),
       err => {
+        //alert('3');
         console.log(err);
-        this.tempChannelname= "Channel not found";
       }
+  }
+  // checkChannel()
+  // {
+  //   this.channelName="Default_Channel_suyash mehrotra";
+  //   let flag = false;           //Used as an indicator when channel is found/not found
+  //  //Since function was being called befor getting the results set in the variable, so used the code here
+  //   this.service.DisplayAllChannel().subscribe(res => {
+  //     this.length = res.channels.length;        //channels here is an array and loop is being run till its length 
+  //     this.myAllChannels=res.channels;
+  //     for (let i = 0; i < this.length; i++) {
+  //       if (this.channelName == res.channels[i].unique_name) {  //Checks the given input field with array here
+  //         flag = true;
+  //         console.log('Channel Found', res.channels[i]); //Shows full details of the channels
+  //         this.MyVar = res.channels[i].unique_name;     //MyVar stores the name of the channel
+  //         this.tempChannelname = res.channels[i].unique_name;
+  //         console.log("Myvar value",this.MyVar);
+  //         this.getChannelIdbyName(this.channelName);
+  //         break;
+  //       }
+  //     }
+
+  //     if (flag === false) {
+  //       //this.addChannel();
+  //       this.service.AddChannel(this.channelName).subscribe(response => {     //Parameter passed cause we are sending(post) so we use this.sendMsg in parameter
+  //       },
+  //         err => {                                                         //Syntax to find default error(Observable Method)
+  //           console.log(err);
+  //         },
+  //         () => {                                                         //This function is used when service finished sending all the data and we call ShowAllMessage Function here
+  //           this.getChannelIdbyName(this.channelName);
+  //         });
+        
+  //     }
+  //   }),
+  //     err => {
+  //       console.log(err);
+  //       this.tempChannelname= "Channel not found";
+  //     }
     
   
 
     
-  }
+  // }
 
   searchChannels() {
     let flag = false;           //Used as an indicator when channel is found/not found
@@ -128,13 +147,30 @@ export class TwichatComponent implements OnInit {
   }
   addChannel() {
     this.loading = true;
+    
+    if(this.channelName != '')                                             //To prevent adding any channel with a blank name
+    {
+    for(let i=0;i< this.myAllChannels.length;i++)                          //Checking the channel if it already exist against an array myAllChannels(already contains all the channel info)
+    {
+        if(this.myAllChannels[i].unique_name == this.channelName)          //this.channelName is added (via NgModel) which checks user input against the array myAllChannels
+        {
+          alert("Channel name already exists, please select different name.")
+          break;                                                           //Break added, otherwise AddChannel() function would have been called
+        }
+    }
     this.service.AddChannel(this.channelName).subscribe(response => {
       console.log('Channel Added', response);                         //Shows the details of the channel added
+      this.GetAllChannel();
     }),
       this.loading = false;
     err => {
       console.log(err);
     }
+  }
+  else
+  {
+    alert("Please enter the channel name to create.")
+  }
   }
   logout() {
     localStorage.clear();
@@ -166,7 +202,8 @@ export class TwichatComponent implements OnInit {
     ).subscribe(response => {
       console.log('Channel Id Recieved', response);
       this.channel=response.sid;
-      console.log("My Channel" + response.sid)
+      console.log("My Channel" + response.sid);
+      this.MyVar=myChannelName;
       this.allMessages();
     }),
       err => {
@@ -175,7 +212,23 @@ export class TwichatComponent implements OnInit {
   }
   sendMessage() {
     this.loading = true;
-    this.service.SendMessageToChannel(this.sendMsg, this.channel).subscribe(response => {     //Parameter passed cause we are sending(post) so we use this.sendMsg in parameter
+    let date = new Date();
+    let hour = date.getHours();
+    let minute = date.getMinutes();
+    
+
+    let day= date.getDate();
+    let month = date.getMonth() +1;
+
+    let fullDateTime= day+"/"+month+" "+ hour+":"+minute;
+    if(this.sendMsg.length >120)
+    {
+      alert("Maximum message length size is 120");
+      this.loading = false;
+    }
+    else
+    {
+    this.service.SendMessageToChannel(this.sendMsg + "- "+ this.loggedInUser + " - ("+ fullDateTime +")" , this.channel).subscribe(response => {     //Parameter passed cause we are sending(post) so we use this.sendMsg in parameter
     },
       err => {                                                         //Syntax to find default error(Observable Method)
         console.log(err);
@@ -183,6 +236,7 @@ export class TwichatComponent implements OnInit {
       () => {                                                         //This function is used when service finished sending all the data and we call ShowAllMessage Function here
         this.allMessages();
       });
+    }
   }
 
   allMessages() {

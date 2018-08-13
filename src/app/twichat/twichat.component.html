@@ -13,21 +13,31 @@
     <li id="MyVar_{{MyVar}}" class="channelFont" (click)="getIdMember(MyVar)">{{MyVar}}</li>
     <button (click)="ShowHide(1)">Show All Channels</button><button (click)="ShowHide(0)">Hide All Channels</button>
     <div [className]="show==1 ? 'active' : 'hidden'"> 
-    <li *ngFor="let element of myAllChannels" [className]="element.unique_name=='' ? 'channelFont hidden' : 'active'" (click)="getChannelIdbyName(element.unique_name)">
-      {{ element.unique_name }} 
+     <ul> 
+      <li *ngFor="let element of myAllChannels" 
+      [className]="element.unique_name=='' ? 'channelFont hidden' : 'channelFont active'" (click)="getChannelIdbyName(element.unique_name)">
+     <i> {{ element.unique_name }} </i>
     </li>
+  </ul>
   </div>
     
   </div>
   <div class="div3">
     <div class="panel panel-default">
-      <div class="panel-heading">Message Heading <button type="button" class="btn btn-primary" (click)="logout()">Logout</button></div>
-      <div class="panel-body">
-        <li *ngFor="let element of allMsg">
-          {{this.variable}}{{ element.body }}
+      <div class="panel-heading">Message Heading - {{MyVar}} <button type="button" class="btn btn-primary" (click)="logout()">Logout</button></div>
+      <div class="panel-body" >
+        <li *ngFor="let element of allMsg"
+        [className]="element.body.search('- suyash mehrotra') <=0 ? 'alert alert-warning' : 'alert alert-success'"
+       
+        >
+        <div  [ngStyle]='{"float": element.body.search("- suyash mehrotra") <=0 ? "right": "left"}'>
+          {{ element.body }}
+        </div>
+        <br>
         </li>
       </div>
     </div>
+   
     <div class="div2">
 
 <!-- on focus added to clear the input field once we have typed there -->
