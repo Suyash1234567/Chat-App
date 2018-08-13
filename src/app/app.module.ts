@@ -15,6 +15,7 @@ import { UserService } from './auth.service';
 import { AuthgService } from './authg.service';
 // import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
+import { HighlightDirective } from './highlight.directive';
 
 
 export function getAuthServiceConfigs() {
@@ -38,7 +39,8 @@ export function getAuthServiceConfigs() {
   declarations: [
     AppComponent,
     SigninComponent,
-    TwichatComponent
+    TwichatComponent,
+    HighlightDirective
   ],
   imports: [
     SocialLoginModule,

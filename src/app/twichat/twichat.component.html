@@ -10,7 +10,14 @@
     <button type="button" class="btn btn-default" (click)="addChannel()">
       <span class="glyphicon glyphicon-plus-sign"></span>
     </button><br><br>
-    <li id="MyVar_{{MyVar}}" (click)="getIdMember(MyVar)">{{MyVar}}</li>
+    <li id="MyVar_{{MyVar}}" class="channelFont" (click)="getIdMember(MyVar)">{{MyVar}}</li>
+    <button (click)="ShowHide(1)">Show All Channels</button><button (click)="ShowHide(0)">Hide All Channels</button>
+    <div [className]="show==1 ? 'active' : 'hidden'"> 
+    <li *ngFor="let element of myAllChannels" [className]="element.unique_name=='' ? 'channelFont hidden' : 'active'" (click)="getChannelIdbyName(element.unique_name)">
+      {{ element.unique_name }} 
+    </li>
+  </div>
+    
   </div>
   <div class="div3">
     <div class="panel panel-default">

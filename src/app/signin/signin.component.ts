@@ -10,7 +10,8 @@ import { Router } from '../../../node_modules/@angular/router';
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
-
+  title="My Chat";
+  // selectedPic="https://zaggolenews.files.wordpress.com/2017/12/social-media-1806995_1280.png?w=918";
   constructor(private socialAuthService: AuthService, private service: CheckCallService, private routes: Router) { }
 
   public socialSignIn(socialPlatform: string) {
@@ -26,8 +27,9 @@ export class SigninComponent implements OnInit {
       (userData) => {
         localStorage.setItem('key', JSON.stringify(userData));
         console.log(socialPlatform + " sign in data : ", userData);
-        localStorage.setItem("Name",userData.name)
-        localStorage.setItem("Token","ya29.Glz1BR1g1tauv69B6XzavFo3cFl-Fih-KT3PYRO2FtDw4…38Cbi1D2SU7tnicADHNPedf29k0m-0mn6GAdSwmGa-BJXBOUA")
+        localStorage.setItem("Name",userData.name);
+        localStorage.setItem("Token",userData.token);
+        console.log("hey"+userData.token);
         var resp = this.service.getInfo();
         resp.subscribe(data => console.log(data));
         this.routes.navigate(['twichat']);

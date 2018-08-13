@@ -61,3 +61,11 @@ div.box {
   .btn-primary{
     float: right;
   }
+  .channelFont{
+    font-size: 15px;
+    font-weight: bold;
+    color: whitesmoke; 
+  }
+  .hidden{
+    display: none;
+}
