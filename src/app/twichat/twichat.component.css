@@ -16,21 +16,23 @@
 }
 div.box {
     background: #EEE;
-    height: 100%;
+    height: 100vh;
     width: 100%;
   }
   
   div.header{
   
-    height: 18%;
+    height: 18vh;
     width:30%;
   }
   
   div.div1 {
     background: rgb(148, 87, 172);
     float: left;
-    height: 500px;
+     height: 500px; 
     width: 30%;
+    /* max-height: 500px; */
+    overflow-y: auto;
   }
   
   div.div2 {

@@ -1,5 +1,5 @@
-<div class="myBgImage">
-  <h1>
+<div>        <!--added the background image(using class="myBgImage") in css of this component and another in index.html -->
+  <h1 style="text-align: center">
     Welcome to {{ title }}
   </h1>
 
@@ -29,7 +29,7 @@
 	    <form class="form-signin" data-ember-action="2">
 	    	<h2 class="form-signin-heading">Sign in</h2>
 
-			<small class="text-muted">Connect [your service] with your favorite social network</small>
+			<small class="text-muted">Connect your service with your favorite social network</small>
 			<br><br>
 
 			
@@ -39,22 +39,14 @@
 </p>
 <p>
 <a class="btn btn-primary social-login-btn social-linkedin" href="/auth/linkedin"><i class="fa fa-linkedin"></i></a>
+
+<!--GOOGLE SIGNIN BUTTON-->
+
 <button class="btn btn-primary social-login-btn social-google" (click)="socialSignIn('google')" href="/auth/google"><i class="fa fa-google-plus"></i></button>
 </p>
 
 
 
 
-		    <small class="text-muted">Or sign in with [your service]</small>
-		    <br><br>
-	    	
-	        <input id="ember360" class="ember-view ember-text-field form-control login-input" placeholder="Email Address" type="text">
-	        <input id="ember361" class="ember-view ember-text-field form-control login-input-pass" placeholder="Password" type="password">
-
-	        <script id="metamorph-22-start" type="text/x-placeholder"></script><script id="metamorph-22-end" type="text/x-placeholder"></script>
-
-	        <button class="btn btn-lg btn-primary btn-block btn-center" type="submit" data-bindattr-3="3">Sign in</button>
-	        <br>
-	        <small class="create-account text-muted">Dont have a [your service] or social network account? <button id="ember363" class="ember-view btn btn-sm btn-default"> Sign Up </button> </small>
 	    </form>
     </div>

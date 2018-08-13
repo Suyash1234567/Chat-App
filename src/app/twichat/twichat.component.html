@@ -3,7 +3,7 @@
     <br>
     <br>
     <!-- Channel name stores the value of whatever we type(for ref- see ts file) -->
-    <input type="search" class="btn btn-default" [(ngModel)]="channelName" placeholder="search your channel">    
+    <input type="search" class="btn btn-default" [(ngModel)]="channelName" (keyup.enter)="searchChannels()" onfocus="this.value=''" placeholder="search your channel">    
     <button type="button" class="btn btn-default" (click)="searchChannels()">
       <span class="glyphicon glyphicon-search"></span>
     </button>
@@ -24,14 +24,17 @@
       <div class="panel-heading">Message Heading <button type="button" class="btn btn-primary" (click)="logout()">Logout</button></div>
       <div class="panel-body">
         <li *ngFor="let element of allMsg">
-          {{ element.body }}
+          {{this.variable}}{{ element.body }}
         </li>
       </div>
     </div>
     <div class="div2">
-      <input type="text" class="message btn btn-default" [(ngModel)]="sendMsg" placeholder="Send your message" name="msg">&nbsp;&nbsp;
+
+<!-- on focus added to clear the input field once we have typed there -->
+
+      <input type="text" class="message btn btn-default" (keyup.enter)="sendMessage()" onfocus="this.value=''" [(ngModel)]="sendMsg" placeholder="Send your message" name="msg" [(ngModel)]="searchValue">&nbsp;&nbsp;   
      
-      <button type="button" value="snd"  (click)="sendMessage()" >
+      <button type="button" value="snd"   (click)="sendMessage()" >
       <span class="glyphicon glyphicon-play-circle"></span>
         </button>
         

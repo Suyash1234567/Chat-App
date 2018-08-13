@@ -27,17 +27,37 @@ export class TwichatComponent implements OnInit {
   allMsg: any = [];                               //ngFor used for showing messages here(using allMsg array)
   defaultName: string="";
   defaultChannelUserId:any="";
+  setInt:any;
+  message:any;
+  searchValue:any;
+  channelId:any;
+  variable=localStorage.getItem("Name");
   constructor(private service: UserService, private router: Router) { }
 
   ngOnInit() {                                    //will show all the message on page initialisation
     this.checkChannel();
-    //this.allMessages();
+    // //this.allMessages();
+    // this.setInt=setInterval(()=>{
+    //   this.service.ShowAllMessages().subscribe(res=>{
+    //     this.message=res.message;
+    //     console.log(this.message)
+    //   },
+    //   err=>{
+    //     console.log(err);
+    //   })
+    // },1000)
+    setInterval(()=>{
+      this.allMessages();
+    },1000)
+  }
+  hideMessage(){
+    this.searchValue = null;
   }
 
 
   checkChannel()
   {
-    this.channelName="Default_Channel_"+localStorage.getItem("Name");
+    this.channelName="Default_Channel_suyash mehrotra";
     let flag = false;           //Used as an indicator when channel is found/not found
    //Since function was being called befor getting the results set in the variable, so used the code here
     this.service.DisplayAllChannel().subscribe(res => {
