@@ -32,6 +32,7 @@ export class TwichatComponent implements OnInit {
   message:any;
   searchValue:any;
   channelId:any;
+  regEx:any;
 
   constructor(private service: UserService, private router: Router) { }
 
@@ -118,12 +119,15 @@ export class TwichatComponent implements OnInit {
   // }
 
   searchChannels() {
+    this.regEx = new RegExp(this.channelName, "i");
+
     let flag = false;           //Used as an indicator when channel is found/not found
 
     this.service.DisplayAllChannel().subscribe(res => {
       this.length = res.channels.length;        //res.channels here is an array and loop is being run till its length 
       for (let i = 0; i < this.length; i++) {
-        if (this.channelName == res.channels[i].unique_name) {  //Channel Name is added here via NGMODEL.Checks the given input field with array here
+        if(this.regEx.test(res.channels[i].unique_name)){
+        // if (this.channelName == res.channels[i].unique_name) {  //Channel Name is added here via NGMODEL.Checks the given input field with array here
           flag = true;
           //alert('1');
           console.log('Channel Found', res.channels[i]); //Shows full details of the channels
