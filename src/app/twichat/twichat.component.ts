@@ -18,7 +18,7 @@ export class TwichatComponent implements OnInit {
   public channel ="CH736d7089e477499682a3df0d9e095fac";
   public tempChannelname ="General";
   public show = 0;
-  public loggedInUser= localStorage.getItem("Name");
+  public loggedInUser= localStorage.getItem("Name");      //to display name of the message sender 
   length: number;
   msgArr = [];
   myAllChannels=[];
@@ -227,7 +227,7 @@ export class TwichatComponent implements OnInit {
       this.loading = false;
     }
     else
-    {
+    {                                 //Concatinating message Username Fulldate time and sending it as a message to twilio.
     this.service.SendMessageToChannel(this.sendMsg + "- "+ this.loggedInUser + " - ("+ fullDateTime +")" , this.channel).subscribe(response => {     //Parameter passed cause we are sending(post) so we use this.sendMsg in parameter
     },                                                                  //loggedInUser used cause local storage value gets updated every time a new person logs in
       err => {                                                         //Syntax to find default error(Observable Method)
@@ -239,7 +239,7 @@ export class TwichatComponent implements OnInit {
     }
   }
 
-  allMessages() {
+  allMessages() {                                                                       //For showing all the messages
     this.service.ShowAllMessagesFromChannel(this.channel).subscribe(response => {              //response stores the data called from service
       this.allMsg = response.messages;                                 //the 'messages' (cause of dot(.)) property gets saved allMsg
       this.loading = false;
