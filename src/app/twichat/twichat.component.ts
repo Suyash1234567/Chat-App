@@ -38,7 +38,7 @@ export class TwichatComponent implements OnInit {
   ngOnInit() {                                    //will show all the message on page initialisation
     // this.checkChannel();
     this.allMessages();
-    this.GetAllChannel();
+    this.GetAllChannel();                              //Basically to do myAllChannels wala kaam 
     // this.setInt=setInterval(()=>{
     //   this.service.ShowAllMessages().subscribe(res=>{
     //     this.message=res.message;
@@ -48,7 +48,7 @@ export class TwichatComponent implements OnInit {
     //     console.log(err);
     //   })
     // },1000)
-    setInterval(()=>{
+    setInterval(()=>{                                 //to continiously get all messages
       this.allMessages();
     },1000)
   }
@@ -121,9 +121,9 @@ export class TwichatComponent implements OnInit {
     let flag = false;           //Used as an indicator when channel is found/not found
 
     this.service.DisplayAllChannel().subscribe(res => {
-      this.length = res.channels.length;        //channels here is an array and loop is being run till its length 
+      this.length = res.channels.length;        //res.channels here is an array and loop is being run till its length 
       for (let i = 0; i < this.length; i++) {
-        if (this.channelName == res.channels[i].unique_name) {  //Checks the given input field with array here
+        if (this.channelName == res.channels[i].unique_name) {  //Channel Name is added here via NGMODEL.Checks the given input field with array here
           flag = true;
           //alert('1');
           console.log('Channel Found', res.channels[i]); //Shows full details of the channels
@@ -184,7 +184,7 @@ export class TwichatComponent implements OnInit {
   }
 
   getIdMember(str) {
-    document.getElementById("MyVar_" + str).innerHTML;
+    document.getElementById("MyVar_" + str).innerHTML;  //Id formed here is of the form "Myvar_{{MyVar}}" in html. And in str we are passing channel name
     this.service.getChannelId(document.getElementById("MyVar_" + str).innerHTML
     ).subscribe(response => {
       console.log('Channel Id Recieved', response);
@@ -229,7 +229,7 @@ export class TwichatComponent implements OnInit {
     else
     {
     this.service.SendMessageToChannel(this.sendMsg + "- "+ this.loggedInUser + " - ("+ fullDateTime +")" , this.channel).subscribe(response => {     //Parameter passed cause we are sending(post) so we use this.sendMsg in parameter
-    },
+    },                                                                  //loggedInUser used cause local storage value gets updated every time a new person logs in
       err => {                                                         //Syntax to find default error(Observable Method)
         console.log(err);
       },
