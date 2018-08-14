@@ -2,8 +2,8 @@
   <div class="div1">
     <br>
     <br>
-    <!-- Channel name stores the value of whatever we type(for ref- see ts file) -->
-    <input type="search" class="btn btn-default" [(ngModel)]="channelName" (keyup.enter)="searchChannels()" onfocus="this.value=''" placeholder="search your channel">    
+    <!-- channelName stores the value of whatever we type(for ref- see ts file) -->
+    <input type="search" class="btn btn-default"  [(ngModel)]="channelName" (keyup.enter)="searchChannels()" id="searchYourChannel" onfocus="this.value=''" placeholder="search your channel">    
     <button type="button" class="btn btn-default" (click)="searchChannels()">
       <span class="glyphicon glyphicon-search"></span>
     </button>
@@ -12,11 +12,12 @@
     </button><br><br>
     <li id="MyVar_{{MyVar}}" class="channelFont" (click)="getIdMember(MyVar)">{{MyVar}}</li>
     <button (click)="ShowHide(1)">Show All Channels</button><button (click)="ShowHide(0)">Hide All Channels</button>
-    <div [className]="show==1 ? 'active' : 'hidden'"> 
+    <div [className]="show==1 ? 'active' : 'hidden'">            
+      <!-- see ShowHide(num) to see its functionality...if show=1 it'll be active else hide  -->
      <ul> 
       <li *ngFor="let element of myAllChannels" 
       [className]="element.unique_name=='' ? 'channelFont hidden' : 'channelFont active'" (click)="getChannelIdbyName(element.unique_name)">
-     <i> {{ element.unique_name }} </i>
+     <i id="channelname"> {{ element.unique_name }} </i>
     </li>
   </ul>
   </div>
@@ -42,7 +43,7 @@
 
 <!-- on focus added to clear the input field once we have typed there -->
 
-      <input type="text" class="message btn btn-default" (keyup.enter)="sendMessage()" onfocus="this.value=''" [(ngModel)]="sendMsg" placeholder="Send your message" name="msg" [(ngModel)]="searchValue">&nbsp;&nbsp;   
+      <input type="text" class="message btn btn-default" (keyup.enter)="sendMessage()" onfocus="this.value=''" id="sendYourMessage" [(ngModel)]="sendMsg" placeholder="Send your message" name="msg" [(ngModel)]="searchValue">&nbsp;&nbsp;   
      
       <button type="button" value="snd"   (click)="sendMessage()" >
       <span class="glyphicon glyphicon-play-circle"></span>

@@ -67,8 +67,17 @@ div.box {
     font-size: 15px;
     font-weight: bold;
     color: whitesmoke; 
+    cursor: pointer;
   }
   .hidden{
     display: none;
 }
-
+#channelname{
+  cursor: pointer;
+}
+#searchYourChannel{
+  cursor: auto;
+}
+#sendYourMessage{
+  cursor: text;
+}

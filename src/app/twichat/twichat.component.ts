@@ -57,7 +57,7 @@ export class TwichatComponent implements OnInit {
     this.searchValue = null;
   }
 
-  GetAllChannel()
+  GetAllChannel()                                     //gets called on initialisation itself
   {
     this.service.DisplayAllChannel().subscribe(res => {
       this.myAllChannels = res.channels;        //channels here is an array and loop is being run till its length 
@@ -118,8 +118,8 @@ export class TwichatComponent implements OnInit {
     
   // }
 
-  searchChannels() {
-    this.regEx = new RegExp(this.channelName, "i");
+  searchChannels() {                                  //gets triggered through html file
+    this.regEx = new RegExp(this.channelName, "i");   //for case insensitive
 
     let flag = false;           //Used as an indicator when channel is found/not found
 
@@ -149,7 +149,7 @@ export class TwichatComponent implements OnInit {
         this.tempChannelname= "Channel not found";
       }
   }
-  addChannel() {
+  addChannel() {                                                            //gets triggered via html file
     this.loading = true;
     
     if(this.channelName != '')                                             //To prevent adding any channel with a blank name
