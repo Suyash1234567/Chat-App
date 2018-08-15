@@ -1,5 +1,8 @@
 <div class="box">
   <div class="div1">
+      <div id="username">
+          <img [src]="this.user.image" class="avatar">&ensp; {{this.user.name}}
+        </div>
     <br>
     <br>
     <!-- channelName stores the value of whatever we type(for ref- see ts file) -->
@@ -32,7 +35,7 @@
        
         >
         <div  [ngStyle]='{"float": element.body.search("- suyash mehrotra") <=0 ? "right": "left"}'>
-          {{ element.body }}
+          {{ element.from }}
         </div>
         <br>
         </li>

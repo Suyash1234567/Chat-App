@@ -10,7 +10,7 @@ import { Router } from '../../../node_modules/@angular/router';
   styleUrls: ['./twichat.component.css']
 })
 export class TwichatComponent implements OnInit {
-
+  user = JSON.parse(localStorage.getItem("key"));
   public loading = false;
   msggrp;
   public newChannel = "";
@@ -165,7 +165,7 @@ export class TwichatComponent implements OnInit {
     this.service.AddChannel(this.channelName).subscribe(response => {
       console.log('Channel Added', response);                         //Shows the details of the channel added
       this.GetAllChannel();
-      this.getChannelIdbyName(this.channelName);
+      this.getChannelIdbyName(this.channelName);                      //to be a member (defaultly) of the new channel created. 
     }),
       this.loading = false;
     err => {
