@@ -165,6 +165,7 @@ export class TwichatComponent implements OnInit {
     this.service.AddChannel(this.channelName).subscribe(response => {
       console.log('Channel Added', response);                         //Shows the details of the channel added
       this.GetAllChannel();
+      this.getChannelIdbyName(this.channelName);
     }),
       this.loading = false;
     err => {
@@ -175,7 +176,12 @@ export class TwichatComponent implements OnInit {
   {
     alert("Please enter the channel name to create.")
   }
+  
   }
+
+
+
+
   logout() {
     localStorage.clear();
     this.router.navigate(['signin']);
